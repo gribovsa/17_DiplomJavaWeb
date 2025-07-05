@@ -1,0 +1,34 @@
+package org.gribov.dto;
+
+
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+/**
+ * UserDTO это объект передачи информации о пользователе между слоями приложения
+ */
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class UserDto {
+
+    private Long id;
+
+    @NotEmpty
+    private String firstName;
+
+    @NotEmpty
+    private String lastName;
+
+    @NotEmpty(message = "Email should not be empty")
+    @Email
+    private String email;
+
+    @NotEmpty(message = "Password should not be empty")
+    private String password;
+}
