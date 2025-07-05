@@ -45,6 +45,10 @@ public class Hydrobiont {
     @Schema(name = "Фото")
     private String photo;
 
+    @Column(name = "rating")
+    @Schema(name = "Рейтинг")
+    private Float rating;
+
 
     //Для работы с сущностью обязателен конструктор без аргументов
     public Hydrobiont() {
@@ -57,7 +61,7 @@ public class Hydrobiont {
     }
 
 
-    public Hydrobiont(Long id, String direction, String type, String genericName, String speciesName, String quantity, Float price) {
+    public Hydrobiont(Long id, String direction, String type, String genericName, String speciesName, String quantity, Float price, String photo, Float rating) {
         this.id = id;
         this.direction = direction;
         this.type = type;
@@ -65,6 +69,8 @@ public class Hydrobiont {
         this.speciesName = speciesName;
         this.quantity = quantity;
         this.price = price;
+        this.photo = photo;
+        this.rating = rating;
     }
 }
 
