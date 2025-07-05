@@ -41,6 +41,10 @@ public class Hydrobiont {
     @Schema(name = "Цена")
     private Float price;
 
+    @Column(name = "photo")
+    @Schema(name = "Фото")
+    private String photo;
+
 
     //Для работы с сущностью обязателен конструктор без аргументов
     public Hydrobiont() {
