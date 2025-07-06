@@ -1,5 +1,6 @@
 package org.gribov.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,11 +18,18 @@ import java.util.List;
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(name = "ID")
     private Long id;
 
     @Column(nullable = false, unique = true)
+    @Schema(name = "Название роли")
     private String name;
 
     @ManyToMany(mappedBy = "roles")
     private List<User> users;
+
+    public Role(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }

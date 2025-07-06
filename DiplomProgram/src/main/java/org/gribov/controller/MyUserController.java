@@ -3,7 +3,7 @@ package org.gribov.controller;
 
 import org.gribov.dto.UserDto;
 import org.gribov.model.User;
-import org.gribov.security.UserService;
+import org.gribov.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

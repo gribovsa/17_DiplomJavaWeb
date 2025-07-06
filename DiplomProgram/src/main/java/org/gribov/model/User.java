@@ -1,11 +1,14 @@
 package org.gribov.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,23 +18,30 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements Serializable {
+
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(name = "ID")
     private Long id;
 
     @Column(nullable = false, length = 4096)
+    @Schema(name = "Имя")
     private String name;
 
 
     @Column(nullable = false, unique = true, length = 4096)
+    @Schema(name = "Email")
     private String email;
 
     @Column(nullable = false)
+    @Schema(name = "Пароль")
     private String password;
 
+    //Объединение таблиц многие ко многим, создам таблицу соответствия ролей и пользователей users_roles
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "users_roles",
@@ -40,12 +50,14 @@ public class User {
     private List<Role> roles = new ArrayList<>();
 
 
+    //SQL запрос - один ко многим
 //    @OneToMany(mappedBy = "user", cascade = {CascadeType.MERGE, CascadeType.PERSIST},
 //            fetch = FetchType.EAGER)
-//    private List<Note> notes = new ArrayList<>();
+//    private List<Order> orders = new ArrayList<>();
 
-//    public void addNoteToUser(Note note) {
-//        note.setUser(this);
-//        this.getNotes().add(note);
+
+//    public void addOrderToUser(Order order) {
+//        order.setUser(this);
+//        this.getOrders().add(order);
 //    }
 }

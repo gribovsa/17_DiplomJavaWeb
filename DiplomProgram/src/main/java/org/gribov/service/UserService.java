@@ -1,34 +1,48 @@
-package org.gribov.security;
+package org.gribov.service;
 
 import org.gribov.dto.UserDto;
+import org.gribov.model.Hydrobiont;
 import org.gribov.model.Role;
 import org.gribov.model.User;
 import org.gribov.repository.RoleRepository;
 import org.gribov.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Класс - сервис, вся логика работы с пользователями
+ */
 @Service
-public class UserServiceImpl implements UserService {
+public class UserService {
 
+    @Autowired
     private UserRepository userRepository;
+    @Autowired
     private RoleRepository roleRepository;
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
 
-    public UserServiceImpl(UserRepository userRepository,
+/*
+    public UserService(UserRepository userRepository,
                            RoleRepository roleRepository,
                            PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
     }
+*/
 
-    @Override
-    public void saveUserDto(UserDto userDto) {
+    /**
+     * Метод сохранения пользователя
+     * пользователь получен в формате dto
+     * сохранён в преобразованном формате (единое наименование и зашифрованный пароль)
+     */
+    public User saveUserDto(UserDto userDto) {
         User user = new User();
         user.setName(userDto.getFirstName() + " " + userDto.getLastName());
         user.setEmail(userDto.getEmail());
@@ -42,21 +56,47 @@ public class UserServiceImpl implements UserService {
         }
         user.setRoles(List.of(role));
         userRepository.save(user);
+        return user;
+    }
+
+    /**
+     * Метод ищет пользователя по id
+     */
+    public User findUserById(long id) {
+        return userRepository.findById(id).orElse(null);
 
     }
 
-    @Override
+    /**
+     * Метод ищет и возвращает пользователя по email
+     */
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
-    @Override
+
+    /**
+     * Метод ищет всех пользователей,
+     * возвращает пользователей в формате dto
+     */
     public List<UserDto> findAllUsers() {
         List<User> users = userRepository.findAll();
         return users.stream().map((user) -> convertEntityToDto(user))
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Метод удаляет пользователя
+     */
+    public void deleteUserById(Long id) {
+        userRepository.deleteById(id);
+        //добавить функционал - очистить запись в таблице users_roles
+    }
+
+
+    /**
+     * Метод конвертирует пользователя в формат dto
+     */
     private UserDto convertEntityToDto(User user) {
         UserDto userDto = new UserDto();
         String[] name = user.getName().split(" ");
@@ -66,14 +106,13 @@ public class UserServiceImpl implements UserService {
         return userDto;
     }
 
+    /**
+     * Метод добавляет роль (переименовать)
+     */
     private Role checkRoleExist() {
         Role role = new Role();
         role.setName("ROLE_ADMIN");
         return roleRepository.save(role);
     }
 
-    @Override
-    public void saveUser(User user) {
-        userRepository.save(user);
-    }
 }

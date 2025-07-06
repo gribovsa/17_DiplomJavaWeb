@@ -12,6 +12,7 @@ import lombok.Data;
 public class Hydrobiont {
 
     public static long sequence = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Schema(name = "ID")
@@ -25,17 +26,17 @@ public class Hydrobiont {
     @Schema(name = "Тип")
     private String type;
 
-    @Column(name = "generic_name")
+    @Column(name = "name_generic")
     @Schema(name = "Родовое название")
-    private String genericName;
+    private String nameGeneric;
 
-    @Column(name = "species_name")
+    @Column(name = "name_species_name")
     @Schema(name = "Видовое название")
-    private String speciesName;
+    private String nameSpecies;
 
     @Column(name = "quantity")
     @Schema(name = "Количество")
-    private String quantity;
+    private Integer quantity;
 
     @Column(name = "price")
     @Schema(name = "Цена")
@@ -45,31 +46,45 @@ public class Hydrobiont {
     @Schema(name = "Фото")
     private String photo;
 
+    @Column(name = "level")
+    @Schema(name = "Уровень сложности")
+    private String level;
+
     @Column(name = "rating")
     @Schema(name = "Рейтинг")
-    private Float rating;
+    private Long rating;
 
 
     //Для работы с сущностью обязателен конструктор без аргументов
     public Hydrobiont() {
     }
 
-    public Hydrobiont(String genericName, String speciesName) {
+    public Hydrobiont(String direction, String type, String nameGeneric, String nameSpecies, Integer quantity,
+                      Float price, String photo, String level, Long rating) {
         this.id = sequence++;
-        this.genericName = genericName;
-        this.speciesName = speciesName;
-    }
-
-
-    public Hydrobiont(Long id, String direction, String type, String genericName, String speciesName, String quantity, Float price, String photo, Float rating) {
-        this.id = id;
         this.direction = direction;
         this.type = type;
-        this.genericName = genericName;
-        this.speciesName = speciesName;
+        this.nameGeneric = nameGeneric;
+        this.nameSpecies = nameSpecies;
         this.quantity = quantity;
         this.price = price;
         this.photo = photo;
+        this.level = level;
+        this.rating = rating;
+    }
+
+
+    public Hydrobiont(Long id, String direction, String type, String nameGeneric, String nameSpecies, Integer quantity,
+                      Float price, String photo, String level, Long rating) {
+        this.id = id;
+        this.direction = direction;
+        this.type = type;
+        this.nameGeneric = nameGeneric;
+        this.nameSpecies = nameSpecies;
+        this.quantity = quantity;
+        this.price = price;
+        this.photo = photo;
+        this.level = level;
         this.rating = rating;
     }
 }

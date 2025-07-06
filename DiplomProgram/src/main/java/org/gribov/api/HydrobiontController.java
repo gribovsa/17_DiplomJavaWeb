@@ -1,0 +1,65 @@
+package org.gribov.api;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.slf4j.Slf4j;
+import org.gribov.model.Hydrobiont;
+import org.gribov.service.HydrobiontService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
+
+@Slf4j
+@RestController
+@RequestMapping("/hydrobiont")
+@Tag(name = "Гидробионт")
+public class HydrobiontController {
+
+    //Инжекция зависимости
+    @Autowired
+    private HydrobiontService hydrobiontService;
+
+
+    //ручки
+    @GetMapping
+    @Operation(summary = "Get all hydrobiont", description = "Загружает список всех гидробионтов")
+    public ResponseEntity<List<Hydrobiont>> getAllBook() {
+        List<Hydrobiont> book = hydrobiontService.getAllHydrobiont();
+        log.info(!book.isEmpty() ? book.toString() : "none");
+        return !book.isEmpty()
+                ? new ResponseEntity<>(book, HttpStatus.OK)
+                : ResponseEntity.notFound().build();
+    }
+
+
+    @GetMapping("/{id}")
+    @Operation(summary = "Get hydrobiont by id", description = "Загружает гидробионт с указанным идентификатором")
+    public ResponseEntity<Hydrobiont> getHydrobiontById(@PathVariable long id) {
+        Hydrobiont book = hydrobiontService.getHydrobiontById(id);
+        log.info(book != null ? book.toString() : "none");
+        return book != null
+                ? new ResponseEntity<>(book, HttpStatus.OK)// или ResponseEntity.ok(book)
+                : ResponseEntity.notFound().build();
+    }
+
+
+    @PostMapping
+    @Operation(summary = "Create new hydrobiont", description = "Создаёт новый гидробионт")
+    public ResponseEntity<Hydrobiont> createHydrobiont(@RequestBody Hydrobiont book) {
+        Hydrobiont newHydrobiont = hydrobiontService.addHydrobiont(book);
+        log.info(newHydrobiont != null ? newHydrobiont.toString() : "none");
+        return newHydrobiont != null
+                ? new ResponseEntity<>(newHydrobiont, HttpStatus.CREATED)
+                : ResponseEntity.badRequest().build();
+    }
+
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Delete hydrobiont by id", description = "Удаляет гидробионт с указанным идентификатором")
+    public ResponseEntity<Void> deleteHydrobiont(@PathVariable Long id) {
+        hydrobiontService.deleteHydrobiontById(id);
+        return ResponseEntity.noContent().build();
+    }
+
+}
