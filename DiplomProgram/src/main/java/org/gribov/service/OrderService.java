@@ -3,6 +3,7 @@ package org.gribov.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.gribov.api.OrderRequest;
+import org.gribov.model.Buy;
 import org.gribov.model.Order;
 import org.gribov.repository.BuyRepository;
 import org.gribov.repository.OrderRepository;
@@ -22,37 +23,40 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class OrderService {
 
+  public static long sequence = 1L;
+  //private Buy buy;
+
   // Spring это все заинжектит
   private final BuyRepository buyRepository;
   private final UserRepository userRepository;
   private final OrderRepository orderRepository;
-
-  //Читаем максимально возможное количество книг у читателя на руках
-  //из файла Application.yml, если там запись отсутствует, то по умолчанию будет 1шт
-  @Value("${application.max-allowed-books:1}")
-  private int maxAllowedBooks;
+  private final BuyService buyService;
 
 
   /**
-   * Метод регистрации заказа
+   * Метод создания заказа
    */
-  public Order createOrder(OrderRequest request) {
-    if (buyRepository.findByBasketNum(request.getBasketNum()).isEmpty()) {
-      throw new NoSuchElementException("Не найдена корзина с номером \"" + request.getBasketNum() + "\"");
+  public Order createOrder(Long userId) {
+    // Проверим, есть номер корзины (созданы ли покупки, сгруппированные в корзину)
+    if (buyRepository.findByBasketNum(buyService.getBuy().getBasketNum()).isEmpty()) {
+      throw new NoSuchElementException("Не найдена корзина с номером \"" + buyService.getBuy().getBasketNum() + "\"");
     }
-    if (userRepository.findById(request.getUserId()).isEmpty()) {
-      throw new NoSuchElementException("Не найден пользователь с идентификатором \"" + request.getUserId() + "\"");
+    // Существует пользователь с таким Id
+    if (userRepository.findById(userId).isEmpty()) {
+      throw new NoSuchElementException("Не найден пользователь с идентификатором \"" + userId + "\"");
     }
-
-    log.info("Создать заказ разрешается{}", request);
-    //Если всё ок, то создаём экземпляр класса Order
-    Order order = new Order(request.getBasketNum(), request.getUserId());
+    log.info("Создать заказ для userId{} c basketNum{} разрешается", userId, buyService.getBuy().getBasketNum());
+    //Если всё ок, то создаём экземпляр класса Order (предаём basketNum созданной корзины и userId)
+    Order order = new Order(buyService.getBuy().getBasketNum(), userId);
     log.info(order.toString());
     orderRepository.save(order);
 
-
     return order;
   }
+
+
+
+
 
   /**
    * Метод возвращает список всех заказов
@@ -61,6 +65,9 @@ public class OrderService {
     return orderRepository.findAll();
   }
 
+
+
+
   /**
    * Метод ищет заказ в репозитории по id
    */
@@ -68,12 +75,16 @@ public class OrderService {
     return orderRepository.findById(id).orElse(null);
   }
 
+
+
   /**
    * Метод ищет заказ в репозитории по id пользователя
    */
   public List<Order> getOrderByIdUser(Long id) {
     return orderRepository.findByUserId(id);
   }
+
+
 
   /**
    * Метод закрывает заказ

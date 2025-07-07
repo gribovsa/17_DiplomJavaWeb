@@ -37,12 +37,6 @@ public class Buy {
         this.hydrobiontId = hydrobiontId;
     }
 
-//    /**
-//     * Метод генерации номера корзины (статика)
-//     */
-//    public static void setIncrementBasketNum() {
-//        this.basketNum = sequence++;
-//    }
 
 
 }

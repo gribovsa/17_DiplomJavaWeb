@@ -35,12 +35,12 @@ public class OrderController {
      */
     @PostMapping
     @Operation(summary = "Create new order", description = "Создаёт заказ")
-    public ResponseEntity<Order> setNewOrder(@RequestBody OrderRequest request) {
-        log.info("Получен запрос на создание заказа: userId = {}, basketNum = {}", request.getUserId(), request.getBasketNum());
+    public ResponseEntity<Order> setNewOrder(@RequestBody Long userId) {
+        log.info("Получен запрос на создание заказа: для userId = {}", userId);
 
         Order order;
         try {
-            order = orderService.createOrder(request);
+            order = orderService.createOrder(userId);
             log.info("201 -запрос выполнен успешно и привёл к созданию ресурса {}", order.toString());
             // После успешного создания заказа генерируем новый номер корзины
             //Buy.setIncrementBasketNum();
