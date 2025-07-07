@@ -3,16 +3,17 @@ package org.gribov.model;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
 
 /**
- * Класс - корзина покупок, в котором находятся покупки пользователей
- * сгруппированные по basket_num
+ * Класс - покупка, характеризует покупку пользователя
+ * покупки группируются по basket_num
  */
 @Data
 @Entity
-@Table(name = "basket")
+@Table(name = "buy")
 @Schema(name = "Корзина заказов")
-public class Basket {
+public class Buy {
     public static long sequence = 1L;
 
     @Id
@@ -24,24 +25,24 @@ public class Basket {
     @Schema(name = "ID гидробионта")
     private Long hydrobiontId;
 
-    @Column(name = "user_id")
-    @Schema(name = "ID пользователя")
-    private Long userId;
 
+    @Getter
     @Column(name = "basket_num")
     @Schema(name = "Номер корзины")
     private Long basketNum;
 
-    public Basket(Long hydrobiontId, Long userId) {
+
+    public Buy(Long hydrobiontId) {
         this.id = sequence++;
         this.hydrobiontId = hydrobiontId;
-        this.userId = userId;
     }
 
-    /**
-     * Метод генерации номера подкорзины
-     */
-    public void setBasketNum() {
-        this.basketNum = sequence++;
-    }
+//    /**
+//     * Метод генерации номера корзины (статика)
+//     */
+//    public static void setIncrementBasketNum() {
+//        this.basketNum = sequence++;
+//    }
+
+
 }

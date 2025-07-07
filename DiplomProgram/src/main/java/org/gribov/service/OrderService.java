@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.gribov.api.OrderRequest;
 import org.gribov.model.Order;
-import org.gribov.repository.HydrobiontRepository;
+import org.gribov.repository.BuyRepository;
 import org.gribov.repository.OrderRepository;
 import org.gribov.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,7 +23,7 @@ import java.util.Optional;
 public class OrderService {
 
   // Spring это все заинжектит
-  private final HydrobiontRepository hydrobiontRepository;
+  private final BuyRepository buyRepository;
   private final UserRepository userRepository;
   private final OrderRepository orderRepository;
 
@@ -37,8 +37,8 @@ public class OrderService {
    * Метод регистрации заказа
    */
   public Order createOrder(OrderRequest request) {
-    if (hydrobiontRepository.findById(request.getBasketNum()).isEmpty()) {
-      throw new NoSuchElementException("Не найдена корзина покупок с идентификатором \"" + request.getBasketNum() + "\"");
+    if (buyRepository.findByBasketNum(request.getBasketNum()).isEmpty()) {
+      throw new NoSuchElementException("Не найдена корзина с номером \"" + request.getBasketNum() + "\"");
     }
     if (userRepository.findById(request.getUserId()).isEmpty()) {
       throw new NoSuchElementException("Не найден пользователь с идентификатором \"" + request.getUserId() + "\"");
@@ -49,6 +49,8 @@ public class OrderService {
     Order order = new Order(request.getBasketNum(), request.getUserId());
     log.info(order.toString());
     orderRepository.save(order);
+
+
     return order;
   }
 

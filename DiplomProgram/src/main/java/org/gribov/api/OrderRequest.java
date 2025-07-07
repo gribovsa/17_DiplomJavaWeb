@@ -4,20 +4,20 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
- * Запрос формирование заказа
+ * Класс в котором формируется необходимая информация для создания заказа
  */
 @Data
 @AllArgsConstructor
 public class OrderRequest {
-
 
   /**
    * Идентификатор пользователя
    */
   private long userId;
 
+
   /**
-   * Идентификатор гидробионта
+   * Номер корзины
    */
   private long basketNum;
 
