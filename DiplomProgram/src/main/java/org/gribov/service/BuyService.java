@@ -36,7 +36,7 @@ public class BuyService {
      */
     public Long setIncrementBasketNum() {
         this.buy.setBasketNum(sequence++);
-        return buy.getBasketNum();
+        return this.buy.getBasketNum();
     }
 
 

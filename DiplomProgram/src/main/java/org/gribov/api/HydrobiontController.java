@@ -30,10 +30,10 @@ public class HydrobiontController {
     @GetMapping
     @Operation(summary = "Get all hydrobiont", description = "Загружает список всех гидробионтов")
     public ResponseEntity<List<Hydrobiont>> getAllBook() {
-        List<Hydrobiont> book = hydrobiontService.getAllHydrobiont();
-        log.info(!book.isEmpty() ? book.toString() : "none");
-        return !book.isEmpty()
-                ? new ResponseEntity<>(book, HttpStatus.OK)
+        List<Hydrobiont> hydrobiontList = hydrobiontService.getAllHydrobiont();
+        log.info(!hydrobiontList.isEmpty() ? hydrobiontList.toString() : "none");
+        return !hydrobiontList.isEmpty()
+                ? new ResponseEntity<>(hydrobiontList, HttpStatus.OK)
                 : ResponseEntity.notFound().build();
     }
 
@@ -41,10 +41,10 @@ public class HydrobiontController {
     @GetMapping("/{id}")
     @Operation(summary = "Get hydrobiont by id", description = "Загружает гидробионт с указанным идентификатором")
     public ResponseEntity<Hydrobiont> getHydrobiontById(@PathVariable long id) {
-        Hydrobiont book = hydrobiontService.getHydrobiontById(id);
-        log.info(book != null ? book.toString() : "none");
-        return book != null
-                ? new ResponseEntity<>(book, HttpStatus.OK)// или ResponseEntity.ok(book)
+        Hydrobiont returnedHydrobiont = hydrobiontService.getHydrobiontById(id);
+        log.info(returnedHydrobiont != null ? returnedHydrobiont.toString() : "none");
+        return returnedHydrobiont != null
+                ? new ResponseEntity<>(returnedHydrobiont, HttpStatus.OK)// или ResponseEntity.ok(book)
                 : ResponseEntity.notFound().build();
     }
 
