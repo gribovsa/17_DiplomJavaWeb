@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Каталог гидробионтов</title>
+</head>
+
+<body>
+<div class="container">
+    <div class="row">
+        <h1> Catalog Hydrobionts </h1>
+    </div>
+    <table class="table table-striped table-bordered table-hover">
+        <thead class="table-dark">
+        <tr>
+            <th>Id</th>
+            <th>Direction</th>
+            <th>Type</th>
+            <th>Name Generic</th>
+            <th>Name Species</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Level</th>
+            <th>Rating</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="hydrobiont: ${hydrobiont}">
+            <td th:text="${hydrobiont.id}"></td>
+            <td th:text="${hydrobiont.direction}"></td>
+            <td th:text="${hydrobiont.type}"></td>
+            <td th:text="${hydrobiont.nameGeneric}"></td>
+            <td th:text="${hydrobiont.nameSpecies}"></td>
+            <td th:text="${hydrobiont.quantity}"></td>
+            <td th:text="${hydrobiont.price}"></td>
+            <td th:text="${hydrobiont.level}"></td>
+            <td th:text="${hydrobiont.rating}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<form action="/home" method="get">
+    <button type="submit">На главную страницу</button>
+</form>
+
+</body>
+
+</html>
