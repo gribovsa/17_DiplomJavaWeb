@@ -41,12 +41,12 @@ public class DiplomProgramApplication {
     public void generate() {
         log.info("Run method filling repositories: generate()");
 
-        hydrobiontRepository.save(new Hydrobiont(null, "Пресное", "Растение", "Криптокорина", "Спиралис", 10, 115.20F, "1.png","Простое", null ));
-        hydrobiontRepository.save(new Hydrobiont(null, "Пресное", "Растение", "Криптокорина", "Фламинго", 16, 250.50F, "2.png","Сложное", null ));
-        hydrobiontRepository.save(new Hydrobiont(null, "Пресное", "Растение", "Эхинодорус", "Сатурн Игуасу 2009", 3, 1500.00F, "3.png","Среднее", null ));
-        hydrobiontRepository.save(new Hydrobiont(null, "Пресное", "Растение", "Эхинодорус", "Доброта песочного человека", 2, 450.00F, "4.png","Простое", null ));
-        hydrobiontRepository.save(new Hydrobiont(null, "Пресное", "Растение", "Утрикулярия", "Грамнифолия", 10, 500.00F, "5.png", "Сложное",null ));
-        hydrobiontRepository.save(new Hydrobiont(null, "Пресное", "Растение", "Ломариопсис", "Линеата", 10, 100.00F, "6.png","Очень простое", null ));
+        hydrobiontRepository.save(new Hydrobiont(null, "Пресное", "Растение", "Криптокорина", "Спиралис", 10, 115.20F, "/red.jpg","Простое", null ));
+        hydrobiontRepository.save(new Hydrobiont(null, "Пресное", "Растение", "Криптокорина", "Фламинго", 16, 250.50F, "/gold.jpg","Сложное", null ));
+        hydrobiontRepository.save(new Hydrobiont(null, "Пресное", "Растение", "Эхинодорус", "Сатурн Игуасу 2009", 3, 1500.00F, "/3.png","Среднее", null ));
+        hydrobiontRepository.save(new Hydrobiont(null, "Пресное", "Растение", "Эхинодорус", "Доброта песочного человека", 2, 450.00F, "/4.png","Простое", null ));
+        hydrobiontRepository.save(new Hydrobiont(null, "Пресное", "Растение", "Утрикулярия", "Грамнифолия", 10, 500.00F, "/5.png", "Сложное",null ));
+        hydrobiontRepository.save(new Hydrobiont(null, "Пресное", "Растение", "Ломариопсис", "Линеата", 10, 100.00F, "/6.png","Очень простое", null ));
 
 //        userService.saveUserDto(new UserDto(null, "Алексей", "Иванов", "ivanov@mail.ru", "1234"));
 //        userService.saveUserDto(new UserDto(null, "Иван", "Петров", "petrov@mail.ru", "1234"));
