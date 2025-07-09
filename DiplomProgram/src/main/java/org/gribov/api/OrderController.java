@@ -40,7 +40,7 @@ public class OrderController {
 
         Order order;
         try {
-            order = orderService.createOrder(userId);
+            order = orderService.createOrder();
             log.info("201 -запрос выполнен успешно и привёл к созданию ресурса {}", order.toString());
             // После успешного создания заказа генерируем новый номер корзины
             //Buy.setIncrementBasketNum();

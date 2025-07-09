@@ -6,6 +6,7 @@ import org.gribov.model.Role;
 import org.gribov.model.User;
 import org.gribov.repository.RoleRepository;
 import org.gribov.repository.UserRepository;
+import org.gribov.security.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
  */
 @Service
 public class UserService {
+    public static long sequence = 1L;
 
     @Autowired
     private UserRepository userRepository;
@@ -25,20 +27,13 @@ public class UserService {
     private RoleRepository roleRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
 
 
-/*
-    public UserService(UserRepository userRepository,
-                           RoleRepository roleRepository,
-                           PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
-*/
 
     /**
-     * Метод сохранения пользователя
+     * Метод создания и сохранения пользователя
      * пользователь получен в формате dto
      * сохранён в преобразованном формате (единое наименование и зашифрованный пароль)
      */
@@ -46,9 +41,7 @@ public class UserService {
         User user = new User();
         user.setName(userDto.getFirstName() + " " + userDto.getLastName());
         user.setEmail(userDto.getEmail());
-
-        //encrypt the password once we integrate spring security
-        //user.setPassword(userDto.getPassword());
+        user.setNowBasketNum(customUserDetailsService.getUniqueBasketNum()); //задаём уникальный номер корзины
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         Role role = roleRepository.findByName("ROLE_ADMIN");
         if (role == null) {
@@ -58,6 +51,8 @@ public class UserService {
         userRepository.save(user);
         return user;
     }
+
+
 
     /**
      * Метод ищет пользователя по id

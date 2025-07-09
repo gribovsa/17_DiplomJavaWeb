@@ -20,6 +20,7 @@ import java.util.List;
 @Table(name = "users")
 public class User implements Serializable {
 
+
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -41,6 +42,11 @@ public class User implements Serializable {
     @Schema(name = "Пароль")
     private String password;
 
+
+    @Column(name = "now_basket_num", nullable = false)
+    @Schema(name = "Номер используемой козины")
+    private Long nowBasketNum;
+
     //Объединение таблиц многие ко многим, создам таблицу соответствия ролей и пользователей users_roles
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
@@ -48,6 +54,7 @@ public class User implements Serializable {
             joinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "ID")},
             inverseJoinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")})
     private List<Role> roles = new ArrayList<>();
+
 
 
     //SQL запрос - один ко многим

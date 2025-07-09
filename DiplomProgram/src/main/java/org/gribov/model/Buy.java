@@ -31,11 +31,12 @@ public class Buy {
     @Schema(name = "Номер корзины")
     private Long basketNum;
 
-
-    public Buy(Long hydrobiontId) {
+    public Buy(Long hydrobiontId, Long basketNum) {
         this.id = sequence++;
         this.hydrobiontId = hydrobiontId;
+        this.basketNum = basketNum;
     }
+
 
 
 

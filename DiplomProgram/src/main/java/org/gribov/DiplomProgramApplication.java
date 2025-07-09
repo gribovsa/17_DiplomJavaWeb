@@ -1,10 +1,7 @@
 package org.gribov;
 
 import lombok.extern.slf4j.Slf4j;
-import org.gribov.dto.UserDto;
 import org.gribov.model.Hydrobiont;
-import org.gribov.model.Order;
-import org.gribov.model.Role;
 import org.gribov.repository.HydrobiontRepository;
 import org.gribov.repository.OrderRepository;
 import org.gribov.repository.RoleRepository;
@@ -15,9 +12,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
-
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 
 @Slf4j
 @SpringBootApplication
@@ -37,16 +31,19 @@ public class DiplomProgramApplication {
         SpringApplication.run(DiplomProgramApplication.class, args);
     }
 
+
     @EventListener(ApplicationReadyEvent.class)
     public void generate() {
         log.info("Run method filling repositories: generate()");
 
-        hydrobiontRepository.save(new Hydrobiont(null, "Пресное", "Растение", "Криптокорина", "Спиралис", 10, 115.20F, "/red.jpg","Простое", null ));
-        hydrobiontRepository.save(new Hydrobiont(null, "Пресное", "Растение", "Криптокорина", "Фламинго", 16, 250.50F, "/gold.jpg","Сложное", null ));
-        hydrobiontRepository.save(new Hydrobiont(null, "Пресное", "Растение", "Эхинодорус", "Сатурн Игуасу 2009", 3, 1500.00F, "/3.png","Среднее", null ));
-        hydrobiontRepository.save(new Hydrobiont(null, "Пресное", "Растение", "Эхинодорус", "Доброта песочного человека", 2, 450.00F, "/4.png","Простое", null ));
-        hydrobiontRepository.save(new Hydrobiont(null, "Пресное", "Растение", "Утрикулярия", "Грамнифолия", 10, 500.00F, "/5.png", "Сложное",null ));
-        hydrobiontRepository.save(new Hydrobiont(null, "Пресное", "Растение", "Ломариопсис", "Линеата", 10, 100.00F, "/6.png","Очень простое", null ));
+        hydrobiontRepository.save(new Hydrobiont(null, "Пресное", "Растение", "Криптокорина", "Спиралис", 10, 115.20F, "images/spiralis.jpg","Простое", null ));
+        hydrobiontRepository.save(new Hydrobiont(null, "Пресное", "Растение", "Криптокорина", "Фламинго", 16, 250.50F, "images/flamingo.jpg","Сложное", null ));
+        hydrobiontRepository.save(new Hydrobiont(null, "Пресное", "Растение", "Эхинодорус", "Сатурн Игуасу 2009", 3, 1500.00F, "images/saturn.jpg","Среднее", null ));
+        hydrobiontRepository.save(new Hydrobiont(null, "Пресное", "Растение", "Эхинодорус", "Доброта песочного человека", 2, 450.00F, "images/sandman.jpg","Простое", null ));
+        hydrobiontRepository.save(new Hydrobiont(null, "Пресное", "Растение", "Эхинодорус", "Красный жемчуг", 1, 600.00F, "images/red.jpg","Простое", null ));
+        hydrobiontRepository.save(new Hydrobiont(null, "Пресное", "Растение", "Утрикулярия", "Грамнифолия", 10, 500.00F, "images/utricularia.jpg", "Сложное",null ));
+        hydrobiontRepository.save(new Hydrobiont(null, "Пресное", "Растение", "Ломариопсис", "Линеата", 10, 100.00F, "images/lomariopsis.jpg","Очень простое", null ));
+        hydrobiontRepository.save(new Hydrobiont(null, "Пресное", "Растение", "Анубиас", "Golden", 10, 200.00F, "images/gold.jpg","Очень простое", null ));
 
 //        userService.saveUserDto(new UserDto(null, "Алексей", "Иванов", "ivanov@mail.ru", "1234"));
 //        userService.saveUserDto(new UserDto(null, "Иван", "Петров", "petrov@mail.ru", "1234"));

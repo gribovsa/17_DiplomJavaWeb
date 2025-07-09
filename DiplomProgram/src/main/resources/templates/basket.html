@@ -2,6 +2,7 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
 >
+
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -63,7 +64,7 @@
 
 <div class="container">
     <div class="row">
-        <h1> Каталог растений </h1>
+        <h1> Корзина покупок </h1>
     </div>
     <table class="table table-striped table-bordered table-hover">
         <thead class="table-dark">
@@ -79,11 +80,10 @@
             <th>Level</th>
             <th>Rating</th>
             <th>Buy</th>
-            <th>Buy</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="hydrobiont,rStat: ${hydrobiont}">
+        <tr th:each="hydrobiont: ${hydrobiont}">
             <td><img th:src="@{${hydrobiont.photo}}" alt="" width="100px"></td>
             <td th:text="${hydrobiont.id}"></td>
             <td th:text="${hydrobiont.direction}"></td>
@@ -94,15 +94,17 @@
             <td th:text="${hydrobiont.price}"></td>
             <td th:text="${hydrobiont.level}"></td>
             <td th:text="${hydrobiont.rating}"></td>
-            <td><input type="hidden" th:value="${hydrobiont.id}" name="deviceIP"/><button type="submit" name="action" value="sendId">В корзину</button></td>
-            <td th:data-row="${rStat.count}">
-                <form action="/addBuy" method="post">
-                    <button type="submit" th:name="action" th:value="sendData">В корзину</button>
-                </form>
+            <td>
+                <button type="submit">В корзину</button>
+            </td>
         </tr>
         </tbody>
     </table>
 </div>
+
+<form action="/newOrder" method="get">
+    <button type="submit">Создать заказ</button>
+</form>
 
 </body>
 

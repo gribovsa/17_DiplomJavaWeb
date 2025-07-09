@@ -4,10 +4,7 @@ package org.gribov.api;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.gribov.model.Buy;
-import org.gribov.model.Hydrobiont;
-import org.gribov.model.Order;
 import org.gribov.service.BuyService;
-import org.gribov.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,18 +30,6 @@ public class BuyController {
         Buy buy;
         buy = buyService.createBuy(hydrobiontId);
         return new ResponseEntity<>(buy, HttpStatus.CREATED);
-    }
-
-    /**
-     * Метод генерации нового номера корзины
-     */
-    @PutMapping("/new")
-    @Operation(summary = "Update basket number", description = "Вносит изменение в номер корзины, по сути это инкремент")
-    public ResponseEntity<Long> updateBasketNum() {
-        Long returnedBasketNum = buyService.setIncrementBasketNum();
-        return returnedBasketNum != null
-                ? ResponseEntity.ok(returnedBasketNum)
-                : ResponseEntity.badRequest().build();
     }
 
     /**

@@ -3,10 +3,12 @@ package org.gribov.service;
 import lombok.Data;
 import org.gribov.model.Buy;
 import org.gribov.repository.BuyRepository;
+import org.gribov.security.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Класс - сервис, вся логика работы с покупками пользователей
@@ -16,28 +18,22 @@ import java.util.List;
 @Data
 @Service
 public class BuyService {
-    public static long sequence = 1L;
-    private Buy buy; //создадим покупку, доступную всему классу - сервису
 
     @Autowired
     BuyRepository buyRepository;
+    @Autowired
+    private final CustomUserDetailsService customUserDetailsService;
 
     /**
      * Метод создания покупки
      */
     public Buy createBuy(Long hydrobiontId) {
-        buy = new Buy(hydrobiontId);
+        Buy buy = new Buy(hydrobiontId, customUserDetailsService.getNowBasketNum());
         buyRepository.save(buy);
         return buy;
     }
 
-    /**
-     * Метод генерации нового номера корзины
-     */
-    public Long setIncrementBasketNum() {
-        this.buy.setBasketNum(sequence++);
-        return this.buy.getBasketNum();
-    }
+
 
 
     /**
