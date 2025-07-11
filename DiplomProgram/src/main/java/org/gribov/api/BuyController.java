@@ -26,10 +26,8 @@ public class BuyController {
      */
     @PostMapping
     @Operation(summary = "Create new buy", description = "Создаёт покупку")
-    public ResponseEntity<Buy> setNewBuy(@RequestBody Long hydrobiontId) {
-        Buy buy;
-        buy = buyService.createBuy(hydrobiontId);
-        return new ResponseEntity<>(buy, HttpStatus.CREATED);
+    public void setNewBuy(@RequestBody Long hydrobiontId) {
+        buyService.createBuy(hydrobiontId);
     }
 
     /**

@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Arrays.asList;
+
 @Controller
 public class MyBuyController {
     @Autowired
@@ -45,20 +47,14 @@ public class MyBuyController {
 
 
 
-
-
-
     /**
      * Метод совершения покупки корзину
      */
     @RequestMapping("/addBuy")
-    public String addBuyToBasket(@RequestParam(value = "action") String action, Model model){
-
-        model.addAttribute("actions", action);
+    public String addBuyToBasket(@RequestParam(value = "id") Long id, Model model){
+        model.addAttribute("id", id);
+        buyService.createBuy(id);
+        System.out.println("Номер: " + id);
         return "home";
-
-
     }
-
-
 }

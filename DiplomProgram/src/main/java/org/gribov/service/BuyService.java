@@ -1,11 +1,13 @@
 package org.gribov.service;
 
+import jakarta.transaction.Transactional;
 import lombok.Data;
 import org.gribov.model.Buy;
 import org.gribov.repository.BuyRepository;
 import org.gribov.security.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 
 import java.util.List;
 import java.util.Objects;
@@ -27,10 +29,10 @@ public class BuyService {
     /**
      * Метод создания покупки
      */
-    public Buy createBuy(Long hydrobiontId) {
+
+    public void createBuy(Long hydrobiontId) {
         Buy buy = new Buy(hydrobiontId, customUserDetailsService.getNowBasketNum());
         buyRepository.save(buy);
-        return buy;
     }
 
 
