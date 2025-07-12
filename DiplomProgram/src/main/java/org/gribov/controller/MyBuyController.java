@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static java.util.Arrays.asList;
 
@@ -25,36 +27,69 @@ public class MyBuyController {
     private BuyService buyService;
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
-
     @Autowired
     private HydrobiontService hydrobiontService;
+    @Autowired
+    private MyHydrobiontController myHydrobiontController;
 
     /**
      * Метод получения списка гидробионтов из текущей корзины
-     * @param model
-     * @return
      */
     @GetMapping("/basket")
     public String listBuy(Model model) {
         List<Buy> buyList = buyService.getBuyByBasketNum(customUserDetailsService.getNowBasketNum()); //получили список покупок в текущей корзине
-        List<Hydrobiont> basketHydrobiontList = new ArrayList<>(); //сделаем новый список, в который положим гидробионтов из корзины по их id из списка покупок
+        Map<Long, Hydrobiont> buyMap = new HashMap<>();//сделаем map, в котором ключ - номер покупки из репозитория, значение - сам товар (гидробионт)
         for (Buy buy : buyList) {
-            basketHydrobiontList.add(hydrobiontService.getHydrobiontById(buy.getHydrobiontId()));
+            buyMap.put( buy.getId(), hydrobiontService.getHydrobiontById(buy.getHydrobiontId())); //делаю map, где ключ - это номер покупки, а значение сам товар - гидробионт
         }
-        model.addAttribute("hydrobiont", basketHydrobiontList);
+        model.addAttribute("buyMap", buyMap);
         return "basket";
     }
-
 
 
     /**
      * Метод совершения покупки корзину
      */
     @RequestMapping("/addBuy")
-    public String addBuyToBasket(@RequestParam(value = "id") Long id, Model model){
+    public String addBuyToBasket(@RequestParam(value = "id") Long id, Model model) {
         model.addAttribute("id", id);
         buyService.createBuy(id);
         System.out.println("Номер: " + id);
-        return "home";
+        return myHydrobiontController.getListHydrobiont(model);
+    }
+
+    /**
+     * Метод получения списка гидробионтов из корзины по номеру корзины
+     */
+    @RequestMapping("/basketNum")
+    public String listBuyToBasketNum(@RequestParam(value = "basketNum") Long basketNum, Model model) {
+        List<Buy> buyList = buyService.getBuyByBasketNum(basketNum); //получили список покупок в текущей корзине
+        Map<Long, Hydrobiont> buyMap = new HashMap<>();//сделаем map, в котором ключ - номер покупки из репозитория, значение - сам товар (гидробионт)
+        for (Buy buy : buyList) {
+            buyMap.put( buy.getId(), hydrobiontService.getHydrobiontById(buy.getHydrobiontId())); //делаю map, где ключ - это номер покупки, а значение сам товар - гидробионт
+        }
+        model.addAttribute("buyMap", buyMap);
+        return "basketNum";
+    }
+
+    /**
+     * Метод удаления покупки из корзины
+     */
+    @RequestMapping("/deleteBuy")
+    public String deleteBuyToBasket(@RequestParam(value = "id") Long id, Model model) {
+        model.addAttribute("id", id);
+        buyService.deleteBuyById(id);
+        return listBuy(model);
+    }
+
+    /**
+     * Метод получения стоимость всех покупок из корзины
+     */
+    @RequestMapping("/basketSum")
+    public String sumBuyToBasketNum(@RequestParam(value = "basketNum") Long basketNum, Model model) {
+        Float sum = buyService.getTotalPrice(basketNum);
+        model.addAttribute("sum", sum);
+        return listBuyToBasketNum(basketNum, model);
+
     }
 }

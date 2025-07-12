@@ -39,14 +39,14 @@ public class DiplomProgramApplication {
     public void generate() {
         log.info("Run method filling repositories: generate()");
 
-        hydrobiontRepository.save(new Hydrobiont(null, "Пресное", "Растение", "Криптокорина", "Спиралис", 10, 115.20F, "images/spiralis.jpg","Простое", null ));
-        hydrobiontRepository.save(new Hydrobiont(null, "Пресное", "Растение", "Криптокорина", "Фламинго", 16, 250.50F, "images/flamingo.jpg","Сложное", null ));
-        hydrobiontRepository.save(new Hydrobiont(null, "Пресное", "Растение", "Эхинодорус", "Сатурн Игуасу 2009", 3, 1500.00F, "images/saturn.jpg","Среднее", null ));
-        hydrobiontRepository.save(new Hydrobiont(null, "Пресное", "Растение", "Эхинодорус", "Доброта песочного человека", 2, 450.00F, "images/sandman.jpg","Простое", null ));
-        hydrobiontRepository.save(new Hydrobiont(null, "Пресное", "Растение", "Эхинодорус", "Красный жемчуг", 1, 600.00F, "images/red.jpg","Простое", null ));
-        hydrobiontRepository.save(new Hydrobiont(null, "Пресное", "Растение", "Утрикулярия", "Грамнифолия", 10, 500.00F, "images/utricularia.jpg", "Сложное",null ));
-        hydrobiontRepository.save(new Hydrobiont(null, "Пресное", "Растение", "Ломариопсис", "Линеата", 10, 100.00F, "images/lomariopsis.jpg","Очень простое", null ));
-        hydrobiontRepository.save(new Hydrobiont(null, "Пресное", "Растение", "Анубиас", "Golden", 10, 200.00F, "images/gold.jpg","Очень простое", null ));
+        hydrobiontRepository.save(new Hydrobiont(null, "Пресное", "Растение", "Криптокорина", "Спиралис", 10, 115.20F, "images/spiralis.jpg","Простое", 0L ));
+        hydrobiontRepository.save(new Hydrobiont(null, "Пресное", "Растение", "Криптокорина", "Фламинго", 16, 250.50F, "images/flamingo.jpg","Сложное", 0L ));
+        hydrobiontRepository.save(new Hydrobiont(null, "Пресное", "Растение", "Эхинодорус", "Сатурн Игуасу 2009", 3, 1500.00F, "images/saturn.jpg","Среднее", 0L ));
+        hydrobiontRepository.save(new Hydrobiont(null, "Пресное", "Растение", "Эхинодорус", "Доброта песочного человека", 2, 450.00F, "images/sandman.jpg","Простое", 0L ));
+        hydrobiontRepository.save(new Hydrobiont(null, "Пресное", "Растение", "Эхинодорус", "Красный жемчуг", 1, 600.00F, "images/red.jpg","Простое", 0L ));
+        hydrobiontRepository.save(new Hydrobiont(null, "Пресное", "Растение", "Утрикулярия", "Грамнифолия", 10, 500.00F, "images/utricularia.jpg", "Сложное",0L ));
+        hydrobiontRepository.save(new Hydrobiont(null, "Пресное", "Растение", "Ломариопсис", "Линеата", 10, 100.00F, "images/lomariopsis.jpg","Очень простое", 0L ));
+        hydrobiontRepository.save(new Hydrobiont(null, "Пресное", "Растение", "Анубиас", "Golden", 10, 200.00F, "images/gold.jpg","Очень простое", 0L ));
 
 
 //        buyService.createBuy(1L);

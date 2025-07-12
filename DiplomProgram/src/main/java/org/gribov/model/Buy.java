@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 /**
  * Класс - покупка, характеризует покупку пользователя
@@ -11,6 +12,7 @@ import lombok.Getter;
  */
 @Data
 @Entity
+@NoArgsConstructor
 @Table(name = "buy")
 @Schema(name = "Корзина заказов")
 public class Buy {
@@ -37,7 +39,9 @@ public class Buy {
         this.basketNum = basketNum;
     }
 
-
-
-
+    public Buy(Long id, Long hydrobiontId, Long basketNum) {
+        this.id = id;
+        this.hydrobiontId = hydrobiontId;
+        this.basketNum = basketNum;
+    }
 }

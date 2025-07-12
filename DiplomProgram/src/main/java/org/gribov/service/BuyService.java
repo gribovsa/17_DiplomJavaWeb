@@ -3,6 +3,7 @@ package org.gribov.service;
 import jakarta.transaction.Transactional;
 import lombok.Data;
 import org.gribov.model.Buy;
+import org.gribov.model.Hydrobiont;
 import org.gribov.repository.BuyRepository;
 import org.gribov.security.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,16 +26,23 @@ public class BuyService {
     BuyRepository buyRepository;
     @Autowired
     private final CustomUserDetailsService customUserDetailsService;
+    @Autowired
+    private HydrobiontService hydrobiontService;
+    public static long sequence = 1L;
 
     /**
      * Метод создания покупки
      */
-
     public void createBuy(Long hydrobiontId) {
-        Buy buy = new Buy(hydrobiontId, customUserDetailsService.getNowBasketNum());
-        buyRepository.save(buy);
+        Buy buy = new Buy(null, hydrobiontId, customUserDetailsService.getNowBasketNum());
+        Hydrobiont hydrobiont = hydrobiontService.getHydrobiontById(hydrobiontId);
+        //проверим требуемое количество товара на складе
+        if (hydrobiont.getQuantity() >0){
+            hydrobiont.setNewRating(hydrobiont.getRating()); //увеличиваем рейтинг покупке
+            hydrobiont.setNewQuantity(hydrobiont.getQuantity());//уменьшаем количество на складе
+            buyRepository.save(buy);
+        }
     }
-
 
 
 
@@ -54,5 +62,24 @@ public class BuyService {
         return buyRepository.findByHydrobiontId(hydrobiontId).size();
     }
 
+    /**
+     * Метод возвращает стоимость всех покупок по номеру корзины basket_num
+     */
+    public Float getTotalPrice(Long basketNum){
+        List<Buy> buyList = buyRepository.findByBasketNum(basketNum);
+        float sum = 0F;
+        for (Buy buy : buyList) {
+            Hydrobiont hydrobiont = hydrobiontService.getHydrobiontById(buy.getHydrobiontId());
+            sum = sum + hydrobiont.getPrice();
+        }
+        return sum;
+    }
+
+    /**
+     * Метод удаляет товар из корзины по номеру товара
+     */
+    public void deleteBuyById(Long id){
+        buyRepository.deleteById(id);
+    }
 
 }

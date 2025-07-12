@@ -14,7 +14,7 @@ import java.util.List;
 
 @Controller
 public class MyOrderController {
-
+    @Autowired
     private CustomUserDetailsService customUserDetailsService;
 
     @Autowired
@@ -25,13 +25,14 @@ public class MyOrderController {
 
     /**
      * Метод создания заказа
+     *
      * @param model
      * @return
      */
     @GetMapping("/newOrder")
     public String newOrder(Model model) {
         orderService.createOrder(); //создаю заказ, добавляю в репозиторий
-        List<Order> orderList =  orderService.getAllOrder(); //получаю все заказы из репозитория
+        List<Order> orderList = orderService.getAllOrder(); //получаю все заказы из репозитория
         customUserDetailsService.setNewUniqueBasketNumToUser(); //обновляю номер корзины
         model.addAttribute("order", orderList);
         return "order";
@@ -40,7 +41,7 @@ public class MyOrderController {
 
     @GetMapping("/allOrder")
     public String allOrder(Model model) {
-        List<Order> orderList =  orderService.getAllOrder();
+        List<Order> orderList = orderService.getAllOrder();
         model.addAttribute("order", orderList);
         return "order";
     }

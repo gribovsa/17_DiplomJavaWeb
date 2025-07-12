@@ -87,6 +87,17 @@ public class Hydrobiont {
         this.level = level;
         this.rating = rating;
     }
+
+    public void setNewRating(Long oldRating) {
+        this.rating = oldRating + 1L;
+    }
+
+    public void setNewQuantity(Integer oldQuantity){
+        if (oldQuantity>0){
+            this.quantity = oldQuantity-1;
+        }
+
+    }
 }
 
 
