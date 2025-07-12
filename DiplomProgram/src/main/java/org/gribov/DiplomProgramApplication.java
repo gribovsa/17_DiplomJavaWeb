@@ -48,24 +48,5 @@ public class DiplomProgramApplication {
         hydrobiontRepository.save(new Hydrobiont(null, "Пресное", "Растение", "Ломариопсис", "Линеата", 10, 100.00F, "images/lomariopsis.jpg","Очень простое", 0L ));
         hydrobiontRepository.save(new Hydrobiont(null, "Пресное", "Растение", "Анубиас", "Golden", 10, 200.00F, "images/gold.jpg","Очень простое", 0L ));
 
-
-//        buyService.createBuy(1L);
-//        buyService.createBuy(2L);
-//        buyService.createBuy(3L);
-//        userService.saveUserDto(new UserDto(null, "Алексей", "Иванов", "ivanov@mail.ru", "1234"));
-//        userService.saveUserDto(new UserDto(null, "Иван", "Петров", "petrov@mail.ru", "1234"));
-//        userService.saveUserDto(new UserDto(null, "Дмитрий", "Андреев", "andreev@mail.ru", "1234"));
-//
-//        roleRepository.save(new Role(null, "ROLE_ADMIN"));
-
-//        orderRepository.save(new Order(null, 1L, 1L, null, LocalDateTime.now(), null));
-//        orderRepository.save(new Order(null, 2L, 1L, null, LocalDateTime.now(), null));
-//
-//        orderRepository.save(new Order(null, 3L, 2L, null, LocalDateTime.now(), null));
-//        orderRepository.save(new Order(null, 4L, 2L, null, LocalDateTime.now(), null));
-//
-//        orderRepository.save(new Order(null, 5L, 3L, null, LocalDateTime.now(), null));
-//        orderRepository.save(new Order(null, 6L, 3L, null, LocalDateTime.now(), null));
-
     }
 }

@@ -37,12 +37,16 @@ public class MyBuyController {
      */
     @GetMapping("/basket")
     public String listBuy(Model model) {
+        float sumPrice = 0F;
         List<Buy> buyList = buyService.getBuyByBasketNum(customUserDetailsService.getNowBasketNum()); //получили список покупок в текущей корзине
         Map<Long, Hydrobiont> buyMap = new HashMap<>();//сделаем map, в котором ключ - номер покупки из репозитория, значение - сам товар (гидробионт)
         for (Buy buy : buyList) {
-            buyMap.put( buy.getId(), hydrobiontService.getHydrobiontById(buy.getHydrobiontId())); //делаю map, где ключ - это номер покупки, а значение сам товар - гидробионт
+            Hydrobiont hydrobiont = hydrobiontService.getHydrobiontById(buy.getHydrobiontId());
+            buyMap.put(buy.getId(), hydrobiont); //делаю map, где ключ - это номер покупки, а значение сам товар - гидробионт
+            sumPrice = sumPrice + hydrobiont.getPrice(); //вычисляю суммарную цену покупок
         }
         model.addAttribute("buyMap", buyMap);
+        model.addAttribute("sumPrice", sumPrice);
         return "basket";
     }
 
@@ -54,7 +58,7 @@ public class MyBuyController {
     public String addBuyToBasket(@RequestParam(value = "id") Long id, Model model) {
         model.addAttribute("id", id);
         buyService.createBuy(id);
-        System.out.println("Номер: " + id);
+        System.out.println("Добавлен товар номер: " + id);
         return myHydrobiontController.getListHydrobiont(model);
     }
 
@@ -63,12 +67,16 @@ public class MyBuyController {
      */
     @RequestMapping("/basketNum")
     public String listBuyToBasketNum(@RequestParam(value = "basketNum") Long basketNum, Model model) {
+        float sumPrice = 0F;
         List<Buy> buyList = buyService.getBuyByBasketNum(basketNum); //получили список покупок в текущей корзине
         Map<Long, Hydrobiont> buyMap = new HashMap<>();//сделаем map, в котором ключ - номер покупки из репозитория, значение - сам товар (гидробионт)
         for (Buy buy : buyList) {
-            buyMap.put( buy.getId(), hydrobiontService.getHydrobiontById(buy.getHydrobiontId())); //делаю map, где ключ - это номер покупки, а значение сам товар - гидробионт
+            Hydrobiont hydrobiont = hydrobiontService.getHydrobiontById(buy.getHydrobiontId());
+            buyMap.put( buy.getId(), hydrobiont); //делаю map, где ключ - это номер покупки, а значение сам товар - гидробионт
+            sumPrice = sumPrice + hydrobiont.getPrice(); //вычисляю суммарную цену покупок
         }
         model.addAttribute("buyMap", buyMap);
+        model.addAttribute("sumPrice", sumPrice);
         return "basketNum";
     }
 

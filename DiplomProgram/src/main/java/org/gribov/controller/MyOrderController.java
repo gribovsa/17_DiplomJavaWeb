@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 import java.util.List;
@@ -25,9 +27,6 @@ public class MyOrderController {
 
     /**
      * Метод создания заказа
-     *
-     * @param model
-     * @return
      */
     @GetMapping("/newOrder")
     public String newOrder(Model model) {
@@ -35,14 +34,38 @@ public class MyOrderController {
         List<Order> orderList = orderService.getAllOrder(); //получаю все заказы из репозитория
         customUserDetailsService.setNewUniqueBasketNumToUser(); //обновляю номер корзины
         model.addAttribute("order", orderList);
-        return "order";
+        return allOrderToCurrentUser(model);
     }
 
-
+    /**
+     * Get - метод показать все заказы всех пользователей (для администратора)
+     */
     @GetMapping("/allOrder")
     public String allOrder(Model model) {
         List<Order> orderList = orderService.getAllOrder();
         model.addAttribute("order", orderList);
         return "order";
     }
+
+    /**
+     * Get - метод закрыть заказ по id
+     */
+    @RequestMapping("/closeOrder")
+    public String closeOrder(@RequestParam(value = "id") Long id, Model model) {
+        orderService.setReturnedOrder(id);
+        model.addAttribute("id", id);
+        return allOrder(model);
+    }
+
+
+    /**
+     * Get - метод показать все заказы для текущего пользователя
+     */
+    @GetMapping("/allOrderToCurrentUser")
+    public String allOrderToCurrentUser(Model model) {
+        List<Order> orderList = orderService.getOrderByCurrentUser();
+        model.addAttribute("order", orderList);
+        return "orderUserId";
+    }
+
 }

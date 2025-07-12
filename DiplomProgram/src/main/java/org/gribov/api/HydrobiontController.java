@@ -44,15 +44,15 @@ public class HydrobiontController {
         Hydrobiont returnedHydrobiont = hydrobiontService.getHydrobiontById(id);
         log.info(returnedHydrobiont != null ? returnedHydrobiont.toString() : "none");
         return returnedHydrobiont != null
-                ? new ResponseEntity<>(returnedHydrobiont, HttpStatus.OK)// или ResponseEntity.ok(book)
+                ? new ResponseEntity<>(returnedHydrobiont, HttpStatus.OK)// или ResponseEntity.ok(hydrobiont)
                 : ResponseEntity.notFound().build();
     }
 
 
     @PostMapping
     @Operation(summary = "Create new hydrobiont", description = "Создаёт новый гидробионт")
-    public ResponseEntity<Hydrobiont> createHydrobiont(@RequestBody Hydrobiont book) {
-        Hydrobiont newHydrobiont = hydrobiontService.addHydrobiont(book);
+    public ResponseEntity<Hydrobiont> createHydrobiont(@RequestBody Hydrobiont hydrobiont) {
+        Hydrobiont newHydrobiont = hydrobiontService.addHydrobiont(hydrobiont);
         log.info(newHydrobiont != null ? newHydrobiont.toString() : "none");
         return newHydrobiont != null
                 ? new ResponseEntity<>(newHydrobiont, HttpStatus.CREATED)
@@ -68,7 +68,6 @@ public class HydrobiontController {
 
     /**
      * Метод возвращает количество купленных гидробионтов по id гидробионта
-     * это необходимо для статистики - будем заполнять поле рейтинг у гидробионта
      */
     @GetMapping("/{id}/buy/quantity")
     @Operation(summary = "Get order by id", description = "Загружает список покупок по номеру корзины")

@@ -23,16 +23,25 @@ public class MyUserController {
         this.userService = userService;
     }
 
+    /**
+     * Старт http://localhost:8080
+     */
     @GetMapping("/")
     public String home() {
         return "home";
     }
 
+    /**
+     * Get - метод отображения формы аутентификация
+     */
     @GetMapping("/login")
     public String loginForm() {
         return "login";
     }
 
+    /**
+     * Get - метод отображение формы регистрации
+     */
     @GetMapping("register")
     public String showRegistrationForm(Model model) {
         UserDto user = new UserDto();
@@ -40,6 +49,9 @@ public class MyUserController {
         return "register";
     }
 
+    /**
+     * Post - метод регистрации пользователя
+     */
     @PostMapping("/register/save")
     public String registration(@Valid @ModelAttribute("user") UserDto user,
                                BindingResult result,
@@ -57,6 +69,9 @@ public class MyUserController {
         return "redirect:/register?success";
     }
 
+    /**
+     * Get - метод отображает всех зарегистрированных пользователей
+     */
     @GetMapping("/users")
     public String listRegisteredUsers(Model model) {
         List<UserDto> users = userService.findAllUsers();

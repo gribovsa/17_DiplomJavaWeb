@@ -17,6 +17,9 @@ public class MyHydrobiontController {
     HydrobiontService hydrobiontService;
 
 
+    /**
+     * Get - метод показать все товары - гидробионты
+     */
     @GetMapping("/myHydrobiont")
     public String getListHydrobiont(Model model) {
         List<Hydrobiont> hydrobiontList =  hydrobiontService.getAllHydrobiont();

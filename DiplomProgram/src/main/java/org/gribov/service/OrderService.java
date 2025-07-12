@@ -8,6 +8,7 @@ import org.gribov.repository.OrderRepository;
 import org.gribov.repository.UserRepository;
 import org.gribov.security.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 
@@ -62,7 +63,7 @@ public class OrderService {
    * Метод возвращает список всех заказов
    */
   public List<Order> getAllOrder() {
-    return orderRepository.findAll();
+    return orderRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
   }
 
 
@@ -81,6 +82,13 @@ public class OrderService {
    */
   public List<Order> getOrderByIdUser(Long id) {
     return orderRepository.findByUserId(id);
+  }
+
+  /**
+   * Метод возвращает список заказов для текущего пользователя
+   */
+  public List<Order> getOrderByCurrentUser() {
+    return orderRepository.findByUserId(customUserDetailsService.getNowUserId());
   }
 
 

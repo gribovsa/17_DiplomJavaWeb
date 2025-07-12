@@ -64,7 +64,7 @@
 
 <div class="container">
     <div class="row">
-        <h1> Список заказов </h1>
+        <h1> Список всех заказов </h1>
     </div>
     <table class="table table-striped table-bordered table-hover">
         <thead class="table-dark">
@@ -76,6 +76,7 @@
             <th>Time Stamp</th>
             <th>Returned Timestamp</th>
             <th>Open Button</th>
+            <th>Close Button</th>
         </tr>
         </thead>
         <tbody>
@@ -89,6 +90,11 @@
             <td>
                 <form th:action="@{/basketNum}">
                     <button type="submit" th:name="basketNum" th:value=${order.basketNum}>Открыть корзину заказа</button>
+                </form>
+            </td>
+            <td>
+                <form th:action="@{/closeOrder}">
+                    <button type="submit" th:name="id" th:value=${order.id}>Закрыть заказ</button>
                 </form>
             </td>
         </tr>

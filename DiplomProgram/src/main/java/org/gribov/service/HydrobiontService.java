@@ -3,6 +3,8 @@ package org.gribov.service;
 import org.gribov.model.Hydrobiont;
 import org.gribov.repository.HydrobiontRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,9 +20,10 @@ public class HydrobiontService {
 
     /**
      * Метод возвращает все гидробионты
+     * (сортировка по полю id)
      */
     public List<Hydrobiont> getAllHydrobiont() {
-        return hydrobiontRepository.findAll();
+        return hydrobiontRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
 
     /**
