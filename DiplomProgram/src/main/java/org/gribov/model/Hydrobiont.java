@@ -88,16 +88,42 @@ public class Hydrobiont {
         this.rating = rating;
     }
 
-    public void setNewRating(Long oldRating) {
+    /**
+     * Метод увеличения рейтинга товара
+     * @param oldRating значение старого рейтинга
+     */
+    public void setUpRating(Long oldRating) {
         this.rating = oldRating + 1L;
     }
+    /**
+     * Метод уменьшения рейтинга товара
+     * @param oldRating значение старого рейтинга
+     */
+    public void setDownRating(Long oldRating) {
+        if(oldRating>0) {
+            this.rating = oldRating - 1L;
+        }
+    }
 
-    public void setNewQuantity(Integer oldQuantity){
+    /**
+     * Метод уменьшения количества
+     * @param oldQuantity значение существующего количества товара
+     */
+    public void setDownQuantity(Integer oldQuantity){
         if (oldQuantity>0){
             this.quantity = oldQuantity-1;
         }
+    }
+    /**
+     * Метод увеличения количества
+     * @param oldQuantity значение существующего количества товара
+     */
+    public void setUpQuantity(Integer oldQuantity){
+            this.quantity = oldQuantity+1;
 
     }
+
+
 }
 
 

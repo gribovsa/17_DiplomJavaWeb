@@ -38,8 +38,8 @@ public class BuyService {
         Hydrobiont hydrobiont = hydrobiontService.getHydrobiontById(hydrobiontId);
         //проверим требуемое количество товара на складе
         if (hydrobiont.getQuantity() >0){
-            hydrobiont.setNewRating(hydrobiont.getRating()); //увеличиваем рейтинг покупке
-            hydrobiont.setNewQuantity(hydrobiont.getQuantity());//уменьшаем количество на складе
+            hydrobiont.setUpRating(hydrobiont.getRating()); //увеличиваем рейтинг покупке
+            hydrobiont.setDownQuantity(hydrobiont.getQuantity());//уменьшаем количество на складе
             buyRepository.save(buy);
         }
     }
@@ -79,6 +79,12 @@ public class BuyService {
      * Метод удаляет товар из корзины по номеру товара
      */
     public void deleteBuyById(Long id){
+        Buy buy = buyRepository.findById(id).orElse(null);
+        if (buy != null) {
+            Hydrobiont hydrobiont = hydrobiontService.getHydrobiontById(buy.getHydrobiontId());
+            hydrobiont.setDownRating(hydrobiont.getRating()); //уменьшаем рейтинг покупке
+            hydrobiont.setUpQuantity(hydrobiont.getQuantity());//увеличиваем количество на складе
+        }
         buyRepository.deleteById(id);
     }
 

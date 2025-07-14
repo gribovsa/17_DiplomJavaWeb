@@ -15,4 +15,5 @@ public interface BuyRepository extends JpaRepository<Buy, Long> {
 
     List<Buy> findByBasketNum (Long basketNum);
     List<Buy> findByHydrobiontId (Long hydrobiontId);
+
 }
