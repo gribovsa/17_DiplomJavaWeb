@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @Table(name = "buy")
-@Schema(name = "Корзина заказов")
+@Schema(name = "Покупка")
 public class Buy {
     public static long sequence = 1L;
 
