@@ -79,5 +79,14 @@ public class MyUserController {
         return "users";
     }
 
+    /**
+     * Get - метод деаутентификация
+     */
+    @GetMapping("/logout")
+    public String logout() {
+        //переход на данный URL обрабатывает метод filterChain класса SecurityConfig
+        //данный метод открывает форму login, чтобы пользователь вновь аутентифицировался
+        return "login";
+    }
 
 }
