@@ -50,7 +50,8 @@ public class OrderService {
     log.info("CREATE AN ORDER USERID{} AND BASKETNUM{} ALLOWED", customUserDetailsService.getNowUserId(), customUserDetailsService.getNowBasketNum());
     //Если всё ок, то создаём экземпляр класса Order (предаём basketNum созданной корзины и userId)
 
-    Order order = new Order(null, customUserDetailsService.getNowBasketNum(), customUserDetailsService.getNowUserId(), buyService.getTotalPrice(customUserDetailsService.getNowBasketNum()), LocalDateTime.now(),null);
+    Order order = new Order(null, customUserDetailsService.getNowBasketNum(), customUserDetailsService.getNowUserId(),
+            buyService.getTotalPrice(customUserDetailsService.getNowBasketNum()), LocalDateTime.now(),null);
     log.info(order.toString());
     orderRepository.save(order);
 

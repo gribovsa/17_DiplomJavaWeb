@@ -31,7 +31,7 @@ public class MyBuyController {
     private MyHydrobiontController myHydrobiontController;
 
     /**
-     * Метод получения списка гидробионтов из текущей корзины
+     * Get - метод получения списка гидробионтов из текущей корзины
      */
     @GetMapping("/basket")
     public String listBuy(Model model) {
@@ -50,7 +50,7 @@ public class MyBuyController {
 
 
     /**
-     * Метод совершения покупки корзину
+     * Метод совершения покупки в корзину
      */
     @RequestMapping("/addBuy")
     public String addBuyToBasket(@RequestParam(value = "id") Long id, Model model) {

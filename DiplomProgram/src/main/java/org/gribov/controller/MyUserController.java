@@ -24,7 +24,7 @@ public class MyUserController {
     }
 
     /**
-     * Старт http://localhost:8080
+     * Старт <a href="http://localhost:8080">...</a>
      */
     @GetMapping("/")
     public String home() {

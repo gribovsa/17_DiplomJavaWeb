@@ -100,7 +100,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="hydrobiont,rStat: ${hydrobiont}">
+        <tr th:each="hydrobiont: ${hydrobiont}">
             <td><img th:src="@{${hydrobiont.photo}}" alt="" width="100px"></td>
             <td th:text="${hydrobiont.id}"></td>
             <td th:text="${hydrobiont.direction}"></td>

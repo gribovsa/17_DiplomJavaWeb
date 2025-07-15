@@ -33,7 +33,6 @@ public class User implements Serializable {
     @Schema(name = "Имя")
     private String name;
 
-
     @Column(nullable = false, unique = true, length = 4096)
     @Schema(name = "Email")
     private String email;
@@ -41,7 +40,6 @@ public class User implements Serializable {
     @Column(nullable = false)
     @Schema(name = "Пароль")
     private String password;
-
 
     @Column(name = "now_basket_num", nullable = false)
     @Schema(name = "Номер используемой козины")
@@ -56,15 +54,8 @@ public class User implements Serializable {
     private List<Role> roles = new ArrayList<>();
 
 
-
-    //SQL запрос - один ко многим
-//    @OneToMany(mappedBy = "user", cascade = {CascadeType.MERGE, CascadeType.PERSIST},
-//            fetch = FetchType.EAGER)
-//    private List<Order> orders = new ArrayList<>();
-
-
-//    public void addOrderToUser(Order order) {
-//        order.setUser(this);
-//        this.getOrders().add(order);
-//    }
 }
+
+
+
+

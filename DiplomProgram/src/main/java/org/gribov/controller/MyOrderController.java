@@ -26,7 +26,7 @@ public class MyOrderController {
     private HydrobiontService hydrobiontService;
 
     /**
-     * Метод создания заказа
+     * Get - метод создания заказа
      */
     @GetMapping("/newOrder")
     public String newOrder(Model model) {
@@ -48,7 +48,7 @@ public class MyOrderController {
     }
 
     /**
-     * Get - метод закрыть заказ по id
+     * Метод закрыть заказ по id
      */
     @RequestMapping("/closeOrder")
     public String closeOrder(@RequestParam(value = "id") Long id, Model model) {
